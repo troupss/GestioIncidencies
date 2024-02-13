@@ -22,7 +22,6 @@ class ItemCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required',
             'tipus' => 'required',
             'lloc' => 'required',
             'descripcio' => 'required',

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('incidencies', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
             $table->string('tipus');
             $table->string('lloc');
             $table->string('descripcio');

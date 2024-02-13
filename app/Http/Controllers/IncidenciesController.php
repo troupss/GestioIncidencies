@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Incidencies;
+use App\Models\Proveidor;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
 use App\Http\Controllers\Controller;
@@ -29,15 +30,14 @@ class IncidenciesController extends Controller
     {
         $incidencies = new Incidencies;
 
-        $incidencies->nom = $request->nom;
         $incidencies->tipus = $request->tipus;
         $incidencies->lloc = $request->lloc;
         $incidencies->descripcio = $request->descripcio;
 
         $incidencies->media = $request->file('media')->store('/');
 
-        $incidencies->estat = 'pendent';
-        $incidencies->enviat = 'pendent';
+        $incidencies->estat = 'per enviar';
+        $incidencies->enviat = 0;
         $incidencies->created_at = (new DateTime)->getTimestamp();
 
         $incidencies->save();
@@ -58,29 +58,33 @@ class IncidenciesController extends Controller
     public function UpdateSelect(ItemUpdateRequest $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'estat' => 'required|in:pendent,resolta',
-            'enviat' => 'required|in:pendent,enviat',
+            'estat' => 'required|in:per enviar,pendent,resolta',
+            'enviat' => 'required|in:0,1',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 400);
         }
-
+    
         try {
             $incidencia = Incidencies::findOrFail($id);
-
+    
             $incidencia->update([
                 'estat' => $request->estat,
                 'enviat' => $request->enviat,
             ]);
-
-            return response()->json(['message' => 'Estado y enviado actualizados correctamente'], 200);
+    
+            return Redirect::to('admin/incidencies');
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-
+    public function show($id)
+    {
+        $incidencies = Incidencies::find($id);
+        return view('admin.incidencies.detalles', compact('incidencies'));
+    }
 
     public function destroy($id)
     {
