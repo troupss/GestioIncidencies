@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +21,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $roles = Role::pluck('name');
+        return view('auth.register', compact('roles'));
     }
 
     /**
@@ -34,6 +36,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:treballador,user,admin'], // Asegúrate de validar que el rol proporcionado existe
         ]);
 
         $user = User::create([
@@ -42,8 +45,17 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Asigna el rol al usuario creado
+        $role = $request->role;
+        $user->assignRole($role);
 
+        event(new Registered($user));
+        
+        //Comprova que l'usuari estigui autenticat abans de redireccionar a la pagina d'inici
+        if (Auth::check()) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+    
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);

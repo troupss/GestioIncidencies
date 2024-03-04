@@ -18,4 +18,8 @@ class Incidencies extends Model
         'estat',
         'enviat',
     ];
+    public function proveidor()
+    {
+        return $this->belongsTo(Proveïdors::class, 'proveidor_id'); // Ajusta el nombre del campo de la clave foránea según tu base de datos
+    }
 }

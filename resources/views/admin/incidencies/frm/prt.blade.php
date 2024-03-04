@@ -52,28 +52,32 @@
                     <div class="mb-3">
                         <label for="id" class="form-label">id</label>
                         <div>
-                            <input type="text" class="form-control" id="id" name="id" value="{{ $incidencies->id }}" readonly>
+                            <input type="text" class="form-control" id="id" name="id" value="{{ $incidencies->id }}"
+                                readonly>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="tipus" class="form-label">Tipus</label>
                         <div>
-                            <input type="text" class="form-control" id="tipus" name="tipus" value="{{ $incidencies->tipus }}">
+                            <input type="text" class="form-control" id="tipus" name="tipus"
+                                value="{{ $incidencies->tipus }}">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="lloc" class="form-label">Lloc</label>
                         <div>
-                            <input type="text" class="form-control" id="lloc" name="lloc" value="{{ $incidencies->lloc }}">
+                            <input type="text" class="form-control" id="lloc" name="lloc"
+                                value="{{ $incidencies->lloc }}">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="lloc" class="form-label">Descripció</label>
                         <div class="form-floating">
-                            <textarea class="form-control" id="descripcio" name="descripcio" style="height: 100px">{{ $incidencies->descripcio }}</textarea>
+                            <textarea class="form-control" id="descripcio" name="descripcio"
+                                style="height: 100px">{{ $incidencies->descripcio }}</textarea>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -104,18 +108,13 @@
                     <div class="mb-3 text-center">
                         <label for="tipus" class="form-label">Tipus <i class="fas fa-plus"></i></label>
                         <div>
-                            <select class="form-control" id="tipus" name="tipus">
-                                <option value="" selected>Selecciona una opción</option> <!-- Valor por defecto -->
-                                @foreach($incidencies as $incidencia)
-                                @if($incidencia->proveidor) <!-- Verificar si la incidencia tiene un proveïdor asociado -->
-                                <option value="{{ $incidencia->proveidor->tipus_incidencia }}">{{ $incidencia->proveidor->tipus_incidencia }}</option>
-                                @endif
+                            <select class="form-select" id="tipus" name="tipus">
+                                @foreach($tipusIncidencia as $id => $tipus)
+                                <option value="{{ $tipus }}">{{ $tipus }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-
-
 
                     <div class="mb-3 text-center">
                         <label for="lloc" class="form-label">Lloc</label>
@@ -126,7 +125,8 @@
                     <div class="mb-3 text-center">
                         <label for="lloc" class="form-label">Descripció</label>
                         <div class="form-floating">
-                            <textarea class="form-control" id="descripcio" name="descripcio" style="height: 100px"></textarea>
+                            <textarea class="form-control" id="descripcio" name="descripcio"
+                                style="height: 100px"></textarea>
                         </div>
                     </div>
 
@@ -141,7 +141,8 @@
 
                     <div class="text-lg-center">
                         <button type="submit" class="btn custom-btn"><i class="fas fa-save"></i> Guardar</button>
-                        <a href="javascript:void(0);" onclick="history.back();" class="btn custom-btn"><i class="fas fa-times-circle"></i> Cancelar</a>
+                        <a href="javascript:void(0);" onclick="history.back();" class="btn custom-btn"><i
+                                class="fas fa-times-circle"></i> Cancelar</a>
                     </div>
                 </div>
             </section>

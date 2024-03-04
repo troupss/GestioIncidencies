@@ -30,6 +30,7 @@
                                         <li><a href="/admin/incidencies/crear" class="block hover:text-gray-800 text-lg py-2 px-4 rounded-md bg-white text-black">Crear Incidencia</a></li>
                                         <li><a href="/admin/proveïdors" class="block hover:text-gray-800 text-lg py-2 px-4 rounded-md bg-white text-black">Proveïdors</a></li>
                                         <li><a href="/admin/incidencies" class="block hover:text-gray-800 text-lg py-2 px-4 rounded-md bg-white text-black">Mostrar Incidencies</a></li>
+                                        <li><a href="{{ route('register') }}" class="block hover:text-gray-800 text-lg py-2 px-4 rounded-md bg-white text-black">Registrar Usuari</a>
                                     </ul>
 
                                 </div>

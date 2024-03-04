@@ -14,4 +14,8 @@
             'email',
             'tipus_incidencia',
         ];
+
+        public function incidencies() {
+            return $this->hasMany(Incidencies::class, 'tipus_incidencia', 'tipus');
+        }
     }

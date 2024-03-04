@@ -39,6 +39,18 @@ class ProveedorController extends Controller
         $proveidors = Proveïdors::find($id);
         return view('admin.proveïdors.editar', compact('proveidors'));
     }
+    public function update($id, ProveidorUpdateRequest $request)
+    {
+        $proveidors = Proveïdors::findOrFail($id);
+        $proveidors->nom = $request->nom;
+        $proveidors->cif = $request->cif;
+        $proveidors->numero = $request->numero;
+        $proveidors->email = $request->email;
+        $proveidors->tipus_incidencia = $request->tipus_incidencia;
+
+        $proveidors->save();
+        return redirect('admin/proveïdors')->with('message', 'Guardado Satisfactoriamente !');
+    }
 
     public function UpdateSelect(ProveidorUpdateRequest $request, $id)
     {

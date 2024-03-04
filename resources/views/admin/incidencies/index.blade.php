@@ -72,10 +72,11 @@
                                     </a>
                                     <a href="{{ route('dashboard') }}" class="btn custom-btn mt-4">
                                         <i class="fas fa-sync-alt"></i> Menu
-                                    </a>                        
+                                    </a>
 
                                     <section class="example mt-4">
-                                        <table id="table" class="table table-striped table-bordered table-hover display">
+                                        <table id="table"
+                                            class="table table-striped table-bordered table-hover display">
                                             <thead>
                                                 <tr>
                                                     <th>Id</th>
@@ -96,26 +97,40 @@
                                                     <td class="v-align-middle">{{$incidencia->lloc}}</td>
                                                     <td class="v-align-middle">{{$incidencia->descripcio}}</td>
                                                     <td class="v-align-middle">
-                                                        <img src="../../../uploads/{{ $incidencia->media }}" width="30" class="img-fluid">
+                                                        <img src="../../../uploads/{{ $incidencia->media }}" width="30"
+                                                            class="img-fluid">
                                                     </td>
                                                     <td class="v-align-middle" colspan="2">
-                                                        <form method="post" action="{{ route('admin/incidencies/UpdateSelect', $incidencia->id) }}" id="formulario_incidencia_{{ $incidencia->id }}">
+                                                        <form method="post"
+                                                            action="{{ route('admin/incidencies/UpdateSelect', $incidencia->id) }}"
+                                                            id="formulario_incidencia_{{ $incidencia->id }}">
                                                             @csrf
                                                             {!! method_field('put') !!}
-                                                            <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
+                                                            <input type="hidden" name="incidencia_id"
+                                                                value="{{ $incidencia->id }}">
 
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <select class="form-control" name="estat" onchange="document.getElementById('formulario_incidencia_{{ $incidencia->id }}').submit()">
-                                                                        <option value="per enviar" {{ $incidencia->estat == 'per enviar' ? 'selected' : '' }}>Per enviar</option>
-                                                                        <option value="pendent" {{ $incidencia->estat == 'pendent' ? 'selected' : '' }}>Pendent</option>
-                                                                        <option value="resolta" {{ $incidencia->estat == 'resolta' ? 'selected' : '' }}>Resolta</option>
+                                                                    <select class="form-control" name="estat"
+                                                                        onchange="document.getElementById('formulario_incidencia_{{ $incidencia->id }}').submit()">
+                                                                        <option value="per enviar" {{ $incidencia->estat
+                                                                            == 'per enviar' ? 'selected' : '' }}>Per
+                                                                            enviar</option>
+                                                                        <option value="pendent" {{ $incidencia->estat ==
+                                                                            'pendent' ? 'selected' : '' }}>Pendent
+                                                                        </option>
+                                                                        <option value="resolta" {{ $incidencia->estat ==
+                                                                            'resolta' ? 'selected' : '' }}>Resolta
+                                                                        </option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <select class="form-control" name="enviat" onchange="document.getElementById('formulario_incidencia_{{ $incidencia->id }}').submit()">
-                                                                        <option value="0" {{ $incidencia->enviat == '0' ? 'selected' : '' }}>No</option>
-                                                                        <option value="1" {{ $incidencia->enviat == '1' ? 'selected' : '' }}>Si</option>
+                                                                    <select class="form-control" name="enviat"
+                                                                        onchange="document.getElementById('formulario_incidencia_{{ $incidencia->id }}').submit()">
+                                                                        <option value="0" {{ $incidencia->enviat == '0'
+                                                                            ? 'selected' : '' }}>No</option>
+                                                                        <option value="1" {{ $incidencia->enviat == '1'
+                                                                            ? 'selected' : '' }}>Si</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -123,18 +138,29 @@
                                                     </td>
 
                                                     <td>
-                                                        <form action="{{ route('admin/incidencies/destroy', $incidencia->id) }}" method="POST" class="form-horizontal" role="form" onsubmit="return confirmarEliminar()">
+                                                        <form
+                                                            action="{{ route('admin/incidencies/destroy', $incidencia->id) }}"
+                                                            method="POST" class="form-horizontal" role="form"
+                                                            onsubmit="return confirmarEliminar()">
                                                             <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                            <a href="{{ route('admin/incidencies/editar', $incidencia->id) }}" class="btn custom-btn">
+                                                            <input type="hidden" name="_token"
+                                                                value="{{ csrf_token() }}">
+                                                            <a href="{{ route('admin/incidencies/editar', $incidencia->id) }}"
+                                                                class="btn custom-btn">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
-                                                            <a href="{{ route('admin/incidencies/show', $incidencia->id) }}" class="btn custom-btn">
+                                                            <a href="{{ route('admin/incidencies/show', $incidencia->id) }}"
+                                                                class="btn custom-btn">
                                                                 <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <a href="{{ route('admin/incidencies/whatsapp', $incidencia->id) }}"
+                                                                class="btn btn-success">
+                                                                <i class="fab fa-whatsapp"></i>
                                                             </a>
                                                             <button class="btn btn-danger btn-xs" type="submit">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
+
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -172,7 +198,7 @@
                         _token: $('meta[name="csrf-token"]').attr('content'),
                     }),
                     contentType: 'application/json',
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                     }
                 });
